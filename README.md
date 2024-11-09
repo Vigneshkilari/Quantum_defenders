@@ -1,50 +1,98 @@
-# Problem Statement: Rogue Wi-Fi Access Point Detection and Network Packet Analyzer for Intrusion Detection
+# Rogue Wi-Fi Access Point Detection and Network Packet Analyzer for Intrusion Detection
 
-## Objective
-In the age of wireless connectivity, the threat landscape has expanded significantly, with rogue Wi-Fi access points becoming a common tool for attackers to intercept, manipulate, or steal sensitive data from unsuspecting users. Simultaneously, network security is constantly under threat from malicious actors who deploy malware, initiate unauthorized data transfers, or exploit vulnerabilities to gain unauthorized access. The objective of this challenge is to build a dual-purpose system that can (1) detect rogue Wi-Fi access points in the network and (2) analyze network traffic to identify potential security threats, enhancing the overall security posture of a given environment.
+## Overview
 
----
+This project, **Rogue Wi-Fi Access Point Detection and Network Packet Analyzer for Intrusion Detection**, aims to enhance network security by combining rogue Wi-Fi detection and real-time packet analysis. Using anomaly detection and blockchain-based logging, it identifies unauthorized access points (APs) and malicious network activities, ensuring integrity and auditability of security events.
 
-## Part 1: Rogue Wi-Fi Access Point Detection
-1. **Rogue Access Point Scanning**  
-   The system should regularly scan the surrounding environment for Wi-Fi access points and identify unauthorized or untrusted access points that pose security risks. This includes detecting access points masquerading as legitimate networks, commonly known as “evil twins,” which are frequently used in man-in-the-middle (MitM) attacks.
+### Key Features
 
-2. **Access Point Validation**  
-   Identify access points based on a predefined list of trusted networks, checking for anomalies such as duplicated network names (SSIDs), suspicious MAC addresses, or other irregularities that could indicate a rogue access point. Flag any access points that do not match trusted profiles.
+1. **Rogue Wi-Fi Access Point Detection**
+   - Scans Wi-Fi networks for untrusted APs, identifying "evil twins" that mimic legitimate networks.
+   - Validates APs by comparing SSID and MAC address against a trusted network list.
+   - Alerts administrators through configurable channels (email, SMS, or dashboard).
 
-3. **Alert System**  
-   Upon identifying a rogue access point, the system should immediately notify users or administrators with relevant information, such as the SSID, MAC address, and signal strength of the rogue AP. The alerts should be configurable and sent via email, SMS, or dashboard notifications, enabling quick response to potential security breaches.
+2. **Network Packet Analyzer**
+   - Captures and filters network traffic in real-time, analyzing protocols like TCP, UDP, and HTTP.
+   - Uses anomaly detection to identify suspicious patterns and potential intrusions.
+   - Generates detailed reports on traffic activity and flagged events.
 
----
+3. **Blockchain Integration for Secure Logging**
+   - Logs critical security events on the Polygon blockchain for tamper-proof, immutable records.
+   - Provides transparency and auditability for security compliance and investigation.
 
-## Part 2: Network Packet Analyzer Tool
-1. **Real-Time Packet Capture**  
-   Develop a tool that captures network traffic in real time, analyzing packets traversing the network. This tool should support major network protocols such as TCP, UDP, and HTTP and allow filtering based on protocol types, packet sources, destinations, and data content.
-
-2. **Packet Filtering and Analysis**  
-   Implement features to filter and inspect packets based on specific criteria, focusing on detecting unusual patterns such as repeated access attempts, unexpected protocol behavior, and irregular packet sizes. The system should analyze and flag malicious packets, unauthorized data transfers, or other suspicious activities.
-
-3. **Anomaly Detection**  
-   Integrate anomaly detection algorithms that use statistical, heuristic, or machine learning methods to identify deviations from typical network behavior. The system should detect signs of potential intrusions, including port scans, DDoS patterns, and command-and-control traffic.
-
-4. **Detailed Reporting and Visualization**  
-   Create a reporting system that generates summaries and detailed reports of captured traffic and flagged anomalies. This should include traffic data visualizations, highlighting key metrics such as protocol distribution, top source and destination addresses, packet frequency over time, and identified threats.
-
-5. **User-Friendly Dashboard**  
-   Design an intuitive, accessible dashboard that displays real-time network status, rogue access point detections, and packet analysis results. The dashboard should allow administrators to monitor network health, review alerts, and gain insights into traffic patterns, enabling proactive responses to emerging threats.
+4. **Dashboard Interface**
+   - Real-time monitoring of network status, rogue APs, and flagged traffic anomalies.
+   - Data visualizations and interactive alerts enable quick responses to potential threats.
 
 ---
 
-## Deliverables
-1. **Wi-Fi Access Point Scanner Module**  
-   A standalone or integrated tool capable of detecting and alerting on rogue access points, offering details on suspected rogue devices.
-
-2. **Network Packet Analyzer Module**  
-   A tool for real-time packet capture, analysis, anomaly detection, and report generation. Should include visualizations that make network data easily interpretable.
-
-3. **Unified Dashboard Interface**  
-   A user interface that integrates both modules, allowing seamless monitoring and alert management for administrators.
+## Table of Contents
+- [Project Objectives](#project-objectives)
+- [Technology Stack](#technology-stack)
+- [Installation and Setup](#installation-and-setup)
+- [Usage Guide](#usage-guide)
+- [Architecture Overview](#architecture-overview)
+- [Testing and Optimization](#testing-and-optimization)
+- [Challenges](#challenges)
+- [Future Improvements](#future-improvements)
+- [License](#license)
 
 ---
 
-### Note: This serves only as a reference example. Innovative ideas and unique implementation techniques are highly encouraged and warmly welcomed!
+## Project Objectives
+
+1. **Rogue AP Detection**: Detect and alert unauthorized APs that may attempt to impersonate legitimate networks.
+2. **Intrusion Detection via Packet Analysis**: Identify malicious network activities, such as unauthorized data transfers and port scans.
+3. **Blockchain Integrity**: Securely log security events for tamper-proof auditing.
+4. **Real-Time Monitoring**: Display insights on a user-friendly dashboard with visualizations and interactive alerts.
+
+---
+
+## Technology Stack
+
+- **Programming Language**: Python
+- **Wi-Fi Detection and Packet Analysis**: `Scapy`, `Pyshark`
+- **Anomaly Detection**: `scikit-learn` for statistical and machine learning models
+- **Blockchain Integration**: `web3.py` for Polygon blockchain logging
+- **Dashboard**: Flask (backend), HTML/CSS/JavaScript with Chart.js for visualizations
+- **Database**: SQLite for local storage, with selective logs sent to Polygon blockchain for tamper-proof records
+
+---
+## Usage Guide
+
+- **Rogue AP Detection**: The script scans nearby Wi-Fi networks, checks SSIDs and MAC addresses against a trusted list, and flags any anomalies as rogue APs.
+- **Network Packet Analysis**: Captures packets and inspects traffic for patterns indicative of malicious activity, logging results to the dashboard.
+- **Real-Time Dashboard**: Displays alerts, traffic volume graphs, protocol distribution, and more. Access the dashboard at [http://localhost:5000](http://localhost:5000).
+
+---
+
+## Architecture Overview
+
+- **Rogue AP Detection Module**: Scans networks using Scapy and Pyshark to identify suspicious APs and flag evil twins.
+- **Packet Capture and Analysis**: Filters and analyzes packets in real-time, using machine learning to detect abnormal traffic.
+- **Blockchain Logging**: Logs critical security events to the Polygon blockchain, ensuring the integrity and immutability of network events.
+- **Dashboard**: Provides a UI for monitoring alerts, viewing traffic patterns, and responding to threats.
+
+---
+
+## Testing and Optimization
+
+- **Unit Testing**: Each module includes unit tests for functionality validation.
+- **Load Testing**: Simulate traffic loads to evaluate performance.
+- **False Positive Reduction**: Fine-tune anomaly detection thresholds to reduce incorrect flagging of legitimate APs.
+
+---
+
+## Challenges
+
+- **Network Overhead**: Managing high traffic volumes in real-time can be resource-intensive.
+- **False Positives**: Rogue AP detection may occasionally misidentify legitimate networks, requiring ongoing optimization.
+- **Blockchain Costs**: Logging all events may incur high costs; selectively log only critical events to optimize.
+
+---
+
+## Future Improvements
+
+- **Enhanced Machine Learning**: Integrate deep learning for improved anomaly detection accuracy.
+- **Cross-Platform Compatibility**: Extend functionality to mobile platforms for broader usability.
+- **Distributed Logging**: Investigate using decentralized storage for additional data security and redundancy.
